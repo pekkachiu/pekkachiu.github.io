@@ -45,7 +45,7 @@
   background: var(--pre-code-bg-color);
 }
 .post-page .post-content .hljs {
-  color: var(--second-text-color);
+  color: #00fc00;
 }
 .post-page .post-content img {
   display: block;

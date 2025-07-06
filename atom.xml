@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-07-06T09:28:32.883Z</updated>
+  <updated>2025-07-06T09:45:08.170Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo 常用指令</title>
+    <link href="http://example.com/2025/07/06/Hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
+    <id>http://example.com/2025/07/06/Hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</id>
+    <published>2025-07-06T09:32:32.000Z</published>
+    <updated>2025-07-06T09:45:08.170Z</updated>
+    
+    <content type="html"><![CDATA[<p>持續更新…</p><hr><p><strong>新增文章:</strong></p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new "文章標題"</span><br></pre></td></tr></tbody></table></figure><p>就會產生 .md 檔案在 source/_post裡</p><hr><p><strong>基本語法:</strong></p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean     #清理靜態檔案</span><br><span class="line">hexo g         #生成靜態檔案</span><br><span class="line">hexo d         #推到git上</span><br><span class="line">hexo g         #生成本地端的網站範例</span><br></pre></td></tr></tbody></table></figure><hr><p><strong>注意事項</strong></p><ul><li>路徑是用 / 而不是 \，一個是 linux 環境，一個是windows環境</li><li>照片好像只能用png檔案，使用到的圖片只能放在source/image裡，不然推不上去</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;持續更新…&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;新增文章:&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;l</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>FirstBlog</title>

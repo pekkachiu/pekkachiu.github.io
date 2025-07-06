@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-07-05T16:51:29.859Z</updated>
+  <updated>2025-07-05T16:56:15.737Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://example.com/2025/07/03/HelloBlog/"/>
     <id>http://example.com/2025/07/03/HelloBlog/</id>
     <published>2025-07-03T09:15:09.000Z</published>
-    <updated>2025-07-05T16:51:29.859Z</updated>
+    <updated>2025-07-05T16:56:15.737Z</updated>
     
-    <content type="html"><![CDATA[<p>第一篇blog就來寫寫為什麼會開始吧<br>從很久以前就有想過要寫部落格的想法，不是為了去展現甚麼，而是想找個地方記錄下當下的經歷以及想法而已。<br>所以後面的文章請別太認真看待。<br>就是隨便寫寫而已。!</p><p><img src="/images/treehole.jpg" alt="樹洞裡的老鼠"></p>]]></content>
+    <content type="html"><![CDATA[<p>第一篇blog就來寫寫為什麼會開始吧<br>從很久以前就有想過要寫部落格的想法，不是為了去展現甚麼，而是想找個地方記錄下當下的經歷以及想法而已。<br>所以對文章請別特別認真看待。</p><p><img src="/image/treehole.jpg" alt="樹洞裡的老鼠"></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;第一篇blog就來寫寫為什麼會開始吧&lt;br&gt;從很久以前就有想過要寫部落格的想法，不是為了去展現甚麼，而是想找個地方記錄下當下的經歷以及想法而已。&lt;br&gt;所以後面的文章請別太認真看待。&lt;br&gt;就是隨便寫寫而已。!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/treeho</summary>
+    <summary type="html">&lt;p&gt;第一篇blog就來寫寫為什麼會開始吧&lt;br&gt;從很久以前就有想過要寫部落格的想法，不是為了去展現甚麼，而是想找個地方記錄下當下的經歷以及想法而已。&lt;br&gt;所以對文章請別特別認真看待。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/image/treehole.jpg&quot; alt=&quot;樹洞裡</summary>
       
     
     

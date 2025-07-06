@@ -292,8 +292,15 @@
 
 
 
+<!-- BTC Price 顯示區塊：新增 -->
+<div id="btc-price" style="position: fixed; bottom: 10px; left: 10px; background: rgba(255, 255, 255, 0.516); color: white; padding: 5px 10px; border-radius: 5px; font-size: 14px; z-index: 9999;">
+  BTC: Loading...
+</div>
+
 <div class="copyright">
-  <span class="power-by">
+
+  <!--
+  <span class="power-by"> 
     Powered by <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
   </span>
   <span class="division">|</span>
@@ -305,6 +312,7 @@
   <span class="hosting-info">
     footer.hosting
   </span>
+  -->
 
   <span class="copyright-year">
     <span>
@@ -320,8 +328,38 @@
 
     <span class="author">PekkaChiu</span>
   </span>
-
 </div>
+
+<!-- BTC 即時更新功能 -->
+<script>
+  async function fetchBTCPrice() {
+    try {
+      let response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin');
+      let data = await response.json();
+      let btc = data[0];
+      let price = btc.current_price;
+      let change = btc.price_change_percentage_24h;
+
+      let btcPriceElement = document.getElementById('btc-price');
+      btcPriceElement.innerText = 'BTC: $' + price.toFixed(2) + ' (' + (change >= 0 ? '+' : '') + change.toFixed(2) + '%)';
+
+      if (change >= 0) {
+        btcPriceElement.style.color = '#597247'; // 綠色
+      } else {
+        btcPriceElement.style.color = '#953537'; // 紅色
+      }
+    } catch (error) {
+      document.getElementById('btc-price').innerText = 'BTC: Error';
+    }
+  }
+
+  // 頁面載入時抓一次
+  fetchBTCPrice();
+
+  // 每1分鐘更新一次
+  setInterval(fetchBTCPrice, 1 * 60 * 1000);
+</script>
+
     </footer>
     <div class="back-to-top" id="back-to-top"> <i class="iconfont icon-up"></i> </div>
   </div>
@@ -355,21 +393,6 @@
 
 
   <script type="text/javascript" src="/js/src/even.js?v=3.0.0"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

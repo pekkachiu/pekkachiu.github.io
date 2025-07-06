@@ -17,9 +17,9 @@
 }
 
 :root.appearance-dark {
-  --primary-bg-color: #181818;
-  --second-bg-color: #212121;
-  --third-bg-color: #ffffff14;
+  --primary-bg-color: #1c4b29;
+  --second-bg-color: #266253;
+  --third-bg-color: #3d6582;
   --primary-text-color: #fff;
   --second-text-color: #aaa;
   --border-line-color: rgba(255, 255, 255, 0.05);
@@ -51,9 +51,9 @@
 }
 @media (prefers-color-scheme: dark) {
   :root.appearance-auto {
-    --primary-bg-color: #181818;
-    --second-bg-color: #212121;
-    --third-bg-color: #ffffff14;
+    --primary-bg-color: #1c4b29;
+    --second-bg-color: #266253;
+    --third-bg-color: #3d6582;
     --primary-text-color: #fff;
     --second-text-color: #aaa;
     --border-line-color: rgba(255, 255, 255, 0.05);

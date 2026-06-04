@@ -1248,7 +1248,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #b60025;
+  background: #ff714b;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2649,8 +2649,13 @@ body {
 .headband {
   background: #f2b727 !important;
 }
-.header-inner {
+.header,
+.header-inner,
+.site-brand-container,
+.site-nav {
   background: #1e1e1c !important;
+}
+.header-inner {
   border-bottom: 3px solid #f2b727 !important;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }

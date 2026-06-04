@@ -1248,7 +1248,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #67dfd1;
+  background: #b60025;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2645,6 +2645,9 @@ body {
   color: #e8e8e4 !important;
   font-family: 'Noto Sans TC', 'Helvetica Neue', Arial, sans-serif !important;
   line-height: 1.8;
+}
+.headband {
+  background: #f2b727 !important;
 }
 .header-inner {
   background: #1e1e1c !important;

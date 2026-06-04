@@ -1248,7 +1248,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ed8ee4;
+  background: #67dfd1;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2647,7 +2647,7 @@ body {
   line-height: 1.8;
 }
 .header-inner {
-  background: #363634 !important;
+  background: #1e1e1c !important;
   border-bottom: 3px solid #f2b727 !important;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
@@ -2670,14 +2670,36 @@ body {
 }
 .menu-item a,
 .menu .menu-item a {
-  color: #e8e8e4 !important;
   font-size: clamp(14px, 1vw, 18px) !important;
   font-family: 'Noto Sans TC', sans-serif !important;
+  font-weight: 600;
 }
-.menu-item a:hover,
-.menu-item-active a {
+.menu-item:nth-child(1) a {
+  color: #f2b727 !important;
+}
+.menu-item:nth-child(2) a {
   color: #5b8af5 !important;
-  border-bottom-color: #5b8af5 !important;
+}
+.menu-item:nth-child(3) a {
+  color: #3ea34d !important;
+}
+.menu-item:nth-child(4) a {
+  color: #d93830 !important;
+}
+.menu-item:nth-child(1) a:hover {
+  opacity: 0.7;
+}
+.menu-item:nth-child(2) a:hover {
+  opacity: 0.7;
+}
+.menu-item:nth-child(3) a:hover {
+  opacity: 0.7;
+}
+.menu-item:nth-child(4) a:hover {
+  opacity: 0.7;
+}
+.menu-item-active a {
+  border-bottom-width: 2px !important;
 }
 .main-inner {
   max-width: 75vw !important;
@@ -2852,16 +2874,18 @@ table td {
   background: #f2b727;
 }
 .btn {
-  color: #5b8af5 !important;
-  border: 2px solid #5b8af5 !important;
+  color: #f2b727 !important;
+  border: none !important;
   border-radius: 0 !important;
   background: transparent !important;
   font-size: clamp(13px, 0.9vw, 17px) !important;
-  box-shadow: 2px 2px 0 #4a4a48;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 .btn:hover {
-  background: #e8eefb !important;
-  color: #5b8af5 !important;
+  background: transparent !important;
+  color: #d93830 !important;
+  text-decoration: underline !important;
 }
 .pagination {
   font-size: clamp(13px, 0.9vw, 17px) !important;

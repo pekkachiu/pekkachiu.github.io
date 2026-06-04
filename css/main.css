@@ -1248,7 +1248,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #a6b53d;
+  background: #99581b;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2647,19 +2647,31 @@ body {
   line-height: 1.8;
 }
 .headband {
-  background: #f2b727 !important;
-  width: 100% !important;
+  display: none !important;
 }
-.header,
-.header-inner,
-.site-brand-container,
-.site-nav {
+.header {
   background: #2c2c2a !important;
+  position: relative;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -9999px;
+  right: -9999px;
+  height: 3px;
+  background: #f2b727;
+}
+.site-brand-container {
+  background: transparent !important;
+}
+.site-nav {
+  background: transparent !important;
 }
 .header-inner {
-  width: 100% !important;
-  max-width: 100% !important;
-  border-bottom: 3px solid #f2b727 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 .site-title {
   font-family: 'Press Start 2P', monospace !important;
@@ -2670,12 +2682,6 @@ body {
   outline: none !important;
   box-shadow: none !important;
   background: transparent !important;
-}
-.site-brand-container {
-  font-size: 1rem !important;
-}
-.brand {
-  font-size: 1rem !important;
 }
 .site-title::after {
   content: '_';
@@ -2700,16 +2706,7 @@ body {
 .menu-item:nth-child(4) a {
   color: #d93830 !important;
 }
-.menu-item:nth-child(1) a:hover {
-  opacity: 0.7;
-}
-.menu-item:nth-child(2) a:hover {
-  opacity: 0.7;
-}
-.menu-item:nth-child(3) a:hover {
-  opacity: 0.7;
-}
-.menu-item:nth-child(4) a:hover {
+.menu-item a:hover {
   opacity: 0.7;
 }
 .menu-item-active a {
@@ -2763,9 +2760,9 @@ body {
 }
 .post-block {
   background: #363634 !important;
-  border: 2px solid #4a4a48 !important;
+  border: 1px solid #4a4a48 !important;
   border-radius: 0 !important;
-  box-shadow: 4px 4px 0 #4a4a48;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
   padding: clamp(20px, 2.5vw, 48px) !important;
   margin-bottom: clamp(16px, 1.5vw, 32px) !important;
 }
@@ -2865,10 +2862,9 @@ table td {
 }
 .back-to-top {
   background: #363634 !important;
-  color: #e8e8e4 !important;
-  border: 2px solid #4a4a48 !important;
+  color: #f2b727 !important;
+  border: 1px solid #4a4a48 !important;
   border-radius: 0 !important;
-  box-shadow: 2px 2px 0 #4a4a48;
 }
 ::selection {
   background: #f2b727;
@@ -2915,9 +2911,6 @@ a.tag-cloud-link {
 }
 a.tag-cloud-link:hover {
   color: #d93830 !important;
-}
-.category-list a {
-  color: #5b8af5 !important;
 }
 .post-item-link {
   color: #e8e8e4 !important;

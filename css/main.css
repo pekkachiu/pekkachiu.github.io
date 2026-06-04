@@ -1248,7 +1248,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #cf70ff;
+  background: #a6b53d;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2648,6 +2648,7 @@ body {
 }
 .headband {
   background: #f2b727 !important;
+  width: 100% !important;
 }
 .header,
 .header-inner,
@@ -2656,19 +2657,25 @@ body {
   background: #2c2c2a !important;
 }
 .header-inner {
+  width: 100% !important;
+  max-width: 100% !important;
   border-bottom: 3px solid #f2b727 !important;
-}
-.site-brand-container {
-  font-size: 1rem !important;
-}
-.brand {
-  font-size: 1rem !important;
 }
 .site-title {
   font-family: 'Press Start 2P', monospace !important;
   color: #e8e8e4 !important;
   font-size: clamp(16px, 1.4vw, 26px) !important;
   letter-spacing: 1px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.site-brand-container {
+  font-size: 1rem !important;
+}
+.brand {
+  font-size: 1rem !important;
 }
 .site-title::after {
   content: '_';

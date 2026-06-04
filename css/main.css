@@ -1248,7 +1248,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #99581b;
+  background: #6e0877;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2646,28 +2646,18 @@ body {
   font-family: 'Noto Sans TC', 'Helvetica Neue', Arial, sans-serif !important;
   line-height: 1.8;
 }
+.column {
+  background: #2c2c2a !important;
+}
 .headband {
   display: none !important;
 }
-.header {
-  background: #2c2c2a !important;
-  position: relative;
+.logo-line {
+  display: none !important;
 }
-.header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: -9999px;
-  right: -9999px;
-  height: 3px;
-  background: #f2b727;
-}
-.site-brand-container {
-  background: transparent !important;
-}
-.site-nav {
-  background: transparent !important;
-}
+.header,
+.site-brand-container,
+.site-nav,
 .header-inner {
   background: transparent !important;
   border: none !important;
@@ -2679,7 +2669,6 @@ body {
   font-size: clamp(16px, 1.4vw, 26px) !important;
   letter-spacing: 1px;
   border: none !important;
-  outline: none !important;
   box-shadow: none !important;
   background: transparent !important;
 }

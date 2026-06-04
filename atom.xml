@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>PekkaChiu</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <id>https://pekkachiu.github.io/</id>
+  <link href="https://pekkachiu.github.io/" rel="alternate"/>
+  <link href="https://pekkachiu.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, PekkaChiu</rights>
+  <title>PekkaChiu</title>
+  <updated>2026-06-04T10:56:48.527Z</updated>
+  <entry>
+    <author>
+      <name>PekkaChiu</name>
+    </author>
+    <content>
+      <![CDATA[<p>持續更新…</p><span id="more"></span><hr><p><strong>新增文章:</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;文章標題&quot;</span><br></pre></td></tr></table></figure><p>就會產生 .md 檔案在 source&#x2F;_post裡</p><hr><p><strong>基本語法:</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean     #清理靜態檔案</span><br><span class="line">hexo g         #生成靜態檔案</span><br><span class="line">hexo d         #推到git上</span><br><span class="line">hexo s         #生成本地端的網站範例</span><br></pre></td></tr></table></figure><hr><p><strong>注意事項</strong></p><ul><li>路徑是用 &#x2F; 而不是 \，一個是 linux 環境，一個是windows環境</li><li>照片好像只能用png檔案，使用到的圖片只能放在source&#x2F;image裡，不然推不上去</li></ul>]]>
+    </content>
+    <id>https://pekkachiu.github.io/2025/07/06/Hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</id>
+    <link href="https://pekkachiu.github.io/2025/07/06/Hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
+    <published>2025-07-05T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>持續更新…</p>]]>
+    </summary>
+    <title>Hexo 常用指令</title>
+    <updated>2026-06-04T10:56:48.527Z</updated>
+  </entry>
+</feed>

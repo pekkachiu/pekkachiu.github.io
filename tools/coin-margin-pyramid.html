@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>幣本位逆馬丁金字塔 — PekkaChiu</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+      background: #f8f5ec;
+      color: #34495e;
+      border-top: 3px solid #c05b4d;
+      min-height: 100vh;
+    }
+    ::selection { background: #c05b4d; color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    const FONT = `Consolas, Monaco, Menlo, monospace`;
+    const FONT_SANS = `'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif`;
+
+    const C = {
+      bg: "#f8f5ec",
+      card: "#ffffff",
+      border: "#e6e6e6",
+      accent: "#c05b4d",
+      accentDim: "rgba(192,91,77,0.10)",
+      green: "#2a9d5c",
+      greenDim: "rgba(42,157,92,0.10)",
+      red: "#c0392b",
+      redDim: "rgba(192,57,43,0.10)",
+      blue: "#2980b9",
+      blueDim: "rgba(41,128,185,0.10)",
+      text: "#34495e",
+      dim: "#8a8a8a",
+      muted: "#aaaaaa",
+      input: "#fefefe",
+      warn: "#e67e22",
+      warnDim: "rgba(230,126,34,0.10)",
+    };
+
+    function calcLiq(entry, lev, mmr = 0.005) {
+      return entry * lev / (lev + 1 - lev * mmr);
+    }
+    function calcPnlBTC(entry, cur, margin, lev) {
+      return margin * entry * lev * (1 / entry - 1 / cur);
+    }
+    function marginalEff(gain) { return 1 / Math.pow(1 + gain, 2); }
+
+    const fmt = (n, d = 2) => isNaN(n) || !isFinite(n) ? "—" : n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+    const fbtc = (n) => isNaN(n) || !isFinite(n) ? "—" : n.toFixed(4);
+
+    function App() {
+      const [btcPrice, setBtcPrice] = useState("");
+      const [totalCap, setTotalCap] = useState("1");
+      const [positions, setPositions] = useState([]);
+      const [entry, setEntry] = useState("");
+      const [margin, setMargin] = useState("");
+      const [leverage, setLeverage] = useState("2");
+      const [error, setError] = useState("");
+
+      const cur = parseFloat(btcPrice) || 0;
+      const cap = parseFloat(totalCap) || 1;
+
+      const data = useMemo(() => positions.map((p, i) => {
+        const liq = calcLiq(p.entry, p.leverage);
+        const liqDist = cur > 0 ? ((liq - cur) / cur) * 100 : 0;
+        const pnl = cur > 0 ? calcPnlBTC(p.entry, cur, p.margin, p.leverage) : 0;
+        const pnlPct = p.margin > 0 ? (pnl / p.margin) * 100 : 0;
+        const pnlUSD = pnl * cur;
+        const initUSD = p.margin * p.entry;
+        const pnlUSDPct = initUSD > 0 ? (pnlUSD / initUSD) * 100 : 0;
+        const expo = p.margin * p.leverage;
+        const dead = cur > 0 && cur <= liq;
+        const gain = cur > 0 && cur > p.entry ? (cur - p.entry) / p.entry : 0;
+        const eff = gain > 0 ? marginalEff(gain) * 100 : 100;
+        return { ...p, liq, liqDist, pnl, pnlPct, pnlUSD, pnlUSDPct, expo, dead, eff, gain, id: i };
+      }), [positions, cur]);
+
+      const sum = useMemo(() => {
+        const tMargin = data.reduce((s, p) => s + p.margin, 0);
+        const tExpo = data.reduce((s, p) => s + p.expo, 0);
+        const tPnl = data.reduce((s, p) => s + p.pnl, 0);
+        const tInitUSD = data.reduce((s, p) => s + p.margin * p.entry, 0);
+        const available = cap - tMargin;
+        return { tMargin, tExpo, tPnl, tInitUSD, available, effLev: tMargin > 0 ? tExpo / tMargin : 0, n: data.length };
+      }, [data, cap]);
+
+      const alerts = data.filter(p => p.gain > 0 && p.eff < 50 && !p.dead);
+
+      const handleAdd = () => {
+        const e = parseFloat(entry);
+        const m = parseFloat(margin);
+        const l = parseFloat(leverage);
+        if (!e || e <= 0) { setError("請輸入有效的入場價"); return; }
+        if (!m || m <= 0) { setError("請輸入有效的保證金"); return; }
+        if (!l || l < 1) { setError("槓桿至少 1x"); return; }
+        setError("");
+        setPositions(prev => [...prev, { entry: e, margin: m, leverage: l }]);
+        setEntry("");
+        setMargin("");
+      };
+
+      const remove = (i) => setPositions(prev => prev.filter((_, idx) => idx !== i));
+
+      const pc = (v) => v >= 0 ? C.green : C.red;
+      const pcBg = (v) => v >= 0 ? C.greenDim : C.redDim;
+
+      const inputStyle = {
+        width: "100%", boxSizing: "border-box", padding: "10px 12px",
+        background: C.input, border: `1px solid ${C.border}`, borderRadius: 6,
+        color: C.text, fontFamily: FONT, fontSize: 15, outline: "none",
+      };
+
+      const accountBTC = cap + sum.tPnl;
+      const accountUSD = accountBTC * cur;
+
+      return (
+        <div style={{ fontFamily: FONT_SANS, background: C.bg, color: C.text, minHeight: "100vh", padding: "20px 16px", maxWidth: 960, margin: "0 auto" }}>
+
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
+            <div style={{ width: 6, height: 32, background: C.accent, borderRadius: 2 }} />
+            <div>
+              <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: C.text }}>幣本位逆馬丁金字塔</h1>
+              <p style={{ margin: 0, fontSize: 11, color: C.dim, fontFamily: FONT, letterSpacing: 1 }}>COIN-MARGINED REVERSE MARTINGALE TRACKER</p>
+            </div>
+          </div>
+
+          {/* Top inputs */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: "12px 14px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <label style={{ display: "block", fontSize: 12, color: C.dim, fontFamily: FONT, marginBottom: 6 }}>BTC 現價 (USD)</label>
+              <input value={btcPrice} onChange={e => setBtcPrice(e.target.value)} placeholder="100000" inputMode="decimal" style={inputStyle} />
+            </div>
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: "12px 14px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <label style={{ display: "block", fontSize: 12, color: C.dim, fontFamily: FONT, marginBottom: 6 }}>總資金 (BTC) — 含已實現利潤</label>
+              <input value={totalCap} onChange={e => setTotalCap(e.target.value)} placeholder="1" inputMode="decimal" style={inputStyle} />
+            </div>
+          </div>
+
+          {/* Account Banner */}
+          {cur > 0 && (
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: "18px 20px", marginBottom: 16, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <div>
+                <div style={{ fontSize: 11, color: C.dim, fontFamily: FONT, marginBottom: 4 }}>帳戶淨值 (含未實現)</div>
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: FONT, color: C.accent }}>{fbtc(accountBTC)} ₿</div>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontSize: 11, color: C.dim, fontFamily: FONT, marginBottom: 4 }}>帳戶總市值</div>
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: FONT, color: C.green }}>${fmt(accountUSD, 0)}</div>
+              </div>
+            </div>
+          )}
+
+          {/* Efficiency Alert */}
+          {alerts.length > 0 && (
+            <div style={{ background: C.warnDim, border: `1px solid rgba(230,126,34,0.3)`, borderRadius: 8, padding: "14px 16px", marginBottom: 16 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: C.warn, marginBottom: 8 }}>⚡ 效率衰減提醒</div>
+              {alerts.map((p, i) => {
+                const resetGain = cur > 0 ? `${fmt(p.gain * 100, 0)}%` : "";
+                return (
+                  <div key={i} style={{ fontSize: 12, fontFamily: FONT, color: C.text, lineHeight: 2 }}>
+                    <span style={{ color: C.accent, fontWeight: 700 }}>#{positions.indexOf(p) + 1}</span>
+                    　入場 ${fmt(p.entry, 0)} → 已漲 {resetGain}　邊際效率剩
+                    <span style={{ color: p.eff < 30 ? C.red : C.warn, fontWeight: 700 }}> {fmt(p.eff, 0)}%</span>
+                    {p.eff < 30
+                      ? <span style={{ color: C.red }}> — 強烈建議止盈重開</span>
+                      : <span style={{ color: C.warn }}> — 可考慮部分止盈</span>
+                    }
+                  </div>
+                );
+              })}
+              <div style={{ fontSize: 11, color: C.muted, marginTop: 8, lineHeight: 1.6 }}>
+                止盈後記得更新上方「總資金」= 目前帳戶實際持有的 BTC 總數
+              </div>
+            </div>
+          )}
+
+          {/* Summary Cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10, marginBottom: 16 }}>
+            {[
+              { label: "持倉保證金", val: `${fbtc(sum.tMargin)} ₿`, sub: `佔 ${fmt(cap > 0 ? (sum.tMargin / cap) * 100 : 0, 0)}% 總資金`, color: C.accent },
+              { label: "可用資金", val: `${fbtc(sum.available)} ₿`, sub: sum.available < 0 ? "⚠ 超額" : "可開新倉", color: sum.available < 0 ? C.red : C.green },
+              { label: "總曝險", val: `${fbtc(sum.tExpo)} ₿`, sub: `有效 ${fmt(sum.effLev, 1)}x`, color: C.accent },
+              { label: "未實現 ₿", val: `${sum.tPnl >= 0 ? "+" : ""}${fbtc(sum.tPnl)} ₿`, sub: `₿ ROI ${fmt(sum.tMargin > 0 ? (sum.tPnl / sum.tMargin) * 100 : 0, 1)}%`, color: pc(sum.tPnl) },
+              { label: "未實現 $", val: cur > 0 ? `${sum.tPnl * cur >= 0 ? "+" : ""}$${fmt(Math.abs(sum.tPnl * cur), 0)}` : "—", sub: cur > 0 ? `$ ROI ${fmt(sum.tInitUSD > 0 ? (sum.tPnl * cur / sum.tInitUSD) * 100 : 0, 1)}%` : "—", color: pc(sum.tPnl) },
+            ].map((c, i) => (
+              <div key={i} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: "12px 14px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize: 11, color: C.dim, fontFamily: FONT, marginBottom: 6 }}>{c.label}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, fontFamily: FONT, color: c.color, lineHeight: 1.2 }}>{c.val}</div>
+                <div style={{ fontSize: 11, color: C.muted, fontFamily: FONT, marginTop: 4 }}>{c.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Allocation bar */}
+          {positions.length > 0 && (
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: "14px 16px", marginBottom: 16, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: C.dim, fontFamily: FONT }}>資金配置</span>
+                <span style={{ fontSize: 12, color: C.dim, fontFamily: FONT }}>{sum.n} 倉</span>
+              </div>
+              <div style={{ height: 24, background: "#f0ede4", borderRadius: 6, display: "flex", overflow: "hidden", border: `1px solid ${C.border}` }}>
+                {positions.map((p, i) => {
+                  const w = cap > 0 ? (p.margin / cap) * 100 : 0;
+                  const cols = ["#c05b4d", "#d4796d", "#b84a3c", "#a33d30", "#8c3228"];
+                  return (
+                    <div key={i} style={{
+                      width: `${w}%`, background: data[i]?.dead ? C.red : cols[i % cols.length],
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 10, fontFamily: FONT, fontWeight: 600, color: "#fff",
+                      borderRight: i < positions.length - 1 ? `1px solid ${C.bg}` : "none",
+                    }}>{w > 8 ? `#${i + 1}` : ""}</div>
+                  );
+                })}
+                {sum.available > 0 && (
+                  <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontFamily: FONT, color: C.muted }}>
+                    可用 {fbtc(sum.available)}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Add form */}
+          <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: 16, marginBottom: 16, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <div style={{ fontSize: 14, fontWeight: 600 }}><span style={{ color: C.accent }}>+</span> 新增倉位</div>
+              <div style={{ fontSize: 12, fontFamily: FONT, color: C.dim }}>可用 {fbtc(sum.available)} ₿</div>
+            </div>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "flex-end" }}>
+              <div style={{ flex: "1 1 120px" }}>
+                <label style={{ display: "block", fontSize: 11, color: C.dim, fontFamily: FONT, marginBottom: 4 }}>入場價 (USD)</label>
+                <input value={entry} onChange={e => setEntry(e.target.value)} placeholder="80000" inputMode="decimal" style={inputStyle} />
+              </div>
+              <div style={{ flex: "1 1 120px" }}>
+                <label style={{ display: "block", fontSize: 11, color: C.dim, fontFamily: FONT, marginBottom: 4 }}>保證金 (BTC)</label>
+                <input value={margin} onChange={e => setMargin(e.target.value)} placeholder="0.30" inputMode="decimal" style={inputStyle} />
+              </div>
+              <div style={{ flex: "0 0 80px" }}>
+                <label style={{ display: "block", fontSize: 11, color: C.dim, fontFamily: FONT, marginBottom: 4 }}>槓桿</label>
+                <select value={leverage} onChange={e => setLeverage(e.target.value)} style={{ ...inputStyle, cursor: "pointer", appearance: "auto" }}>
+                  {[1.5, 2, 2.5, 3, 4, 5].map(l => <option key={l} value={String(l)}>{l}x</option>)}
+                </select>
+              </div>
+              <div style={{ flex: "0 0 auto" }}>
+                <button onClick={handleAdd} style={{
+                  padding: "10px 24px", background: C.accent, color: "#fff", border: "none", borderRadius: 6,
+                  fontFamily: FONT_SANS, fontSize: 14, fontWeight: 700, cursor: "pointer",
+                  transition: "opacity 0.2s",
+                }} onMouseOver={e => e.target.style.opacity = 0.85} onMouseOut={e => e.target.style.opacity = 1}>加入</button>
+              </div>
+            </div>
+            {error && <div style={{ marginTop: 8, fontSize: 12, color: C.red, fontFamily: FONT }}>{error}</div>}
+          </div>
+
+          {/* Positions Table */}
+          {data.length > 0 && (
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, overflow: "hidden", marginBottom: 16, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: FONT, fontSize: 12 }}>
+                  <thead>
+                    <tr style={{ background: C.accentDim }}>
+                      {["#", "入場價", "保證金", "槓桿", "清算價", "清算距離", "₿ 損益", "₿ ROI", "$ ROI", "效率", ""].map(h => (
+                        <th key={h} style={{ padding: "10px 12px", textAlign: "left", fontSize: 11, color: C.dim, fontWeight: 600, whiteSpace: "nowrap" }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((p, i) => (
+                      <tr key={i} style={{ opacity: p.dead ? 0.4 : 1, background: p.dead ? C.redDim : "transparent", borderBottom: `1px solid ${C.border}` }}>
+                        <td style={{ padding: "10px 12px" }}><span style={{ color: C.accent, fontWeight: 700 }}>{i + 1}</span></td>
+                        <td style={{ padding: "10px 12px" }}>${fmt(p.entry, 0)}</td>
+                        <td style={{ padding: "10px 12px" }}>{fbtc(p.margin)} ₿</td>
+                        <td style={{ padding: "10px 12px" }}>
+                          <span style={{ background: C.accentDim, color: C.accent, padding: "2px 8px", borderRadius: 4, fontWeight: 600 }}>{p.leverage}x</span>
+                        </td>
+                        <td style={{ padding: "10px 12px" }}><span style={{ color: C.red }}>${fmt(p.liq, 0)}</span></td>
+                        <td style={{ padding: "10px 12px" }}>
+                          <span style={{
+                            padding: "2px 8px", borderRadius: 4, fontWeight: 600, fontSize: 11,
+                            background: p.liqDist < -35 ? C.greenDim : p.liqDist < -25 ? C.warnDim : C.redDim,
+                            color: p.liqDist < -35 ? C.green : p.liqDist < -25 ? C.warn : C.red,
+                          }}>{fmt(p.liqDist, 1)}%</span>
+                        </td>
+                        <td style={{ padding: "10px 12px", color: pc(p.pnl), fontWeight: 600 }}>
+                          {p.pnl >= 0 ? "+" : ""}{fbtc(p.pnl)}
+                        </td>
+                        <td style={{ padding: "10px 12px" }}>
+                          <span style={{ padding: "2px 8px", borderRadius: 4, background: pcBg(p.pnlPct), color: pc(p.pnlPct), fontWeight: 600, fontSize: 11 }}>
+                            {p.pnlPct >= 0 ? "+" : ""}{fmt(p.pnlPct, 1)}%
+                          </span>
+                        </td>
+                        <td style={{ padding: "10px 12px" }}>
+                          <span style={{ padding: "2px 8px", borderRadius: 4, background: pcBg(p.pnlUSDPct), color: pc(p.pnlUSDPct), fontWeight: 600, fontSize: 11 }}>
+                            {p.pnlUSDPct >= 0 ? "+" : ""}{fmt(p.pnlUSDPct, 1)}%
+                          </span>
+                        </td>
+                        <td style={{ padding: "10px 12px" }}>
+                          {p.gain > 0 ? (
+                            <span style={{
+                              padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 600,
+                              background: p.eff > 50 ? C.greenDim : p.eff > 30 ? C.warnDim : C.redDim,
+                              color: p.eff > 50 ? C.green : p.eff > 30 ? C.warn : C.red,
+                            }}>{fmt(p.eff, 0)}%</span>
+                          ) : <span style={{ color: C.muted }}>—</span>}
+                        </td>
+                        <td style={{ padding: "10px 12px" }}>
+                          <button onClick={() => remove(i)} style={{ border: "none", background: "transparent", color: C.muted, fontSize: 16, cursor: "pointer", padding: "2px 6px" }} onMouseOver={e => e.target.style.color = C.red} onMouseOut={e => e.target.style.color = C.muted}>×</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Empty */}
+          {positions.length === 0 && (
+            <div style={{ textAlign: "center", padding: "48px 20px", color: C.muted }}>
+              <div style={{ fontSize: 32, marginBottom: 12, color: C.accent }}>△</div>
+              <p style={{ fontSize: 14, margin: 0, color: C.dim }}>輸入 BTC 現價和總資金，然後新增倉位開始追蹤</p>
+              <p style={{ fontSize: 12, margin: "8px 0 0" }}>止盈後手動更新「總資金」為帳戶實際 BTC 數量即可</p>
+            </div>
+          )}
+
+          {/* Legend */}
+          <div style={{ padding: "12px 16px", background: C.card, borderRadius: 8, border: `1px solid ${C.border}`, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+            <div style={{ fontSize: 12, color: C.dim, fontFamily: FONT, marginBottom: 8 }}>指標說明</div>
+            <div style={{ display: "flex", gap: 20, fontSize: 12, fontFamily: FONT, flexWrap: "wrap", lineHeight: 2 }}>
+              <span>清算距離：<span style={{ color: C.green }}>■</span> &lt;-35% 安全　<span style={{ color: C.warn }}>■</span> -25~-35% 注意　<span style={{ color: C.red }}>■</span> &gt;-25% 危險</span>
+            </div>
+            <div style={{ display: "flex", gap: 20, fontSize: 12, fontFamily: FONT, flexWrap: "wrap", lineHeight: 2 }}>
+              <span>邊際效率：<span style={{ color: C.green }}>■</span> &gt;50% 持有　<span style={{ color: C.warn }}>■</span> 30-50% 考慮部分止盈　<span style={{ color: C.red }}>■</span> &lt;30% 建議止盈重開</span>
+            </div>
+            <div style={{ fontSize: 11, color: C.muted, marginTop: 6 }}>
+              止盈或加減倉後，更新上方「總資金」為你帳戶裡實際持有的 BTC 總數（含已實現利潤）
+            </div>
+          </div>
+
+          {/* Back to blog */}
+          <div style={{ textAlign: "center", marginTop: 24, paddingBottom: 20 }}>
+            <a href="/" style={{ fontSize: 13, color: C.accent, textDecoration: "none", fontFamily: FONT }} onMouseOver={e => e.target.style.textDecoration = "underline"} onMouseOut={e => e.target.style.textDecoration = "none"}>← 返回部落格</a>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

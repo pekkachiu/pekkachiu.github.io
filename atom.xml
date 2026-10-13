@@ -9,7 +9,28 @@
   <link href="https://pekkachiu.github.io/atom.xml" rel="self"/>
   <rights>All rights reserved 2026, PekkaChiu</rights>
   <title>PekkaChiu</title>
-  <updated>2026-06-04T11:25:06.392Z</updated>
+  <updated>2026-10-13T05:44:32.529Z</updated>
+  <entry>
+    <author>
+      <name>PekkaChiu</name>
+    </author>
+    <category term="Projects" scheme="https://pekkachiu.github.io/categories/Projects/"/>
+    <category term="Crypto" scheme="https://pekkachiu.github.io/tags/Crypto/"/>
+    <category term="Three.js" scheme="https://pekkachiu.github.io/tags/Three-js/"/>
+    <category term="資料視覺化" scheme="https://pekkachiu.github.io/tags/%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/"/>
+    <category term="Side Project" scheme="https://pekkachiu.github.io/tags/Side-Project/"/>
+    <content>
+      <![CDATA[<p>看盤看久了，數字表格會開始變成一片雜訊。所以我做了一個小實驗：<strong>把加密貨幣市場畫成一個低多邊形的小太陽系</strong> — 每個分類是一顆星球，每個幣種是星球上的一間店。哪家店門口排長隊、哪裡人潮最多，一眼就知道錢往哪裡跑。</p><span id="more"></span><p>👉 <a href="https://pekkachiu.github.io/crypto-planet/">打開加密星球小鎮</a>　（支援手機、右上角可切換中／英文）</p><p><img src="/images/crypto-planet/major-shop.jpg" alt="主流星：BTC 店門口"></p><hr><h2 id="🪐-太陽系"><a href="#🪐-太陽系" class="headerlink" title="🪐 太陽系"></a>🪐 太陽系</h2><p>點一顆星球就會飛進去。目前開放 <strong>主流星</strong>、<strong>ETF 星</strong> 與 <strong>恐懼貪婪星</strong>，迷因、AI、公鏈星球之後會陸續開放。</p><p><img src="/images/crypto-planet/solar.jpg" alt="太陽系"></p><hr><h2 id="🏙️-主流星：市值前十大的幣"><a href="#🏙️-主流星：市值前十大的幣" class="headerlink" title="🏙️ 主流星：市值前十大的幣"></a>🏙️ 主流星：市值前十大的幣</h2><p>排除穩定幣與包裝幣後，市值前十大的幣各開一間店，點店面或下方的幣種列可以看詳細數字。</p><table><thead><tr><th>畫面</th><th>代表什麼</th></tr></thead><tbody><tr><td>建築大小</td><td>市值：≥ $1T 摩天大樓、≥ $100B 辦公大樓、≥ $20B 街邊店舖、其他小攤</td></tr><tr><td>門口右側的綠色隊伍</td><td>24 小時主動買入金額（Taker Buy）</td></tr><tr><td>門口左側的紅色隊伍</td><td>24 小時主動賣出金額</td></tr><tr><td>路上的行人</td><td>24 小時成交額</td></tr><tr><td>叫號速度</td><td>24 小時成交筆數</td></tr><tr><td>招牌顏色</td><td>24 小時漲跌：<strong>綠漲紅跌</strong>（國際慣例）</td></tr></tbody></table><h3 id="🌳-爆倉公園"><a href="#🌳-爆倉公園" class="headerlink" title="🌳 爆倉公園"></a>🌳 爆倉公園</h3><p>位在主流星的北極。中央紀念碑的紅色段是多單爆倉、綠色段是空單爆倉；長椅上的紅衣人是多單爆倉者、綠衣人是空單爆倉者，人數隨金額增減。</p><blockquote><p>⚠️ 爆倉公園只用 <strong>OKX</strong> 一家的資料（這十個幣的 USDT 永續合約、過去 24 小時），不是全網爆倉，數字會比 Coinglass 小很多。</p></blockquote><p><img src="/images/crypto-planet/liquidation-park.jpg" alt="爆倉公園"></p><hr><h2 id="🏦-ETF-星：現貨-ETF-資金流"><a href="#🏦-ETF-星：現貨-ETF-資金流" class="headerlink" title="🏦 ETF 星：現貨 ETF 資金流"></a>🏦 ETF 星：現貨 ETF 資金流</h2><p>美國現貨加密貨幣 ETF，<strong>一個幣種一棟</strong>（BTC、ETH、SOL、XRP），每棟是該幣種所有 ETF 的加總，例如 BTC 棟＝IBIT＋FBTC＋GBTC＋…。</p><table><thead><tr><th>畫面</th><th>代表什麼</th></tr></thead><tbody><tr><td>建築大小</td><td>總資產規模：≥ $50B 摩天大樓、≥ $10B 辦公大樓、≥ $1B 街邊店舖、其他小攤</td></tr><tr><td>右側綠色隊伍</td><td>單日總淨流入</td></tr><tr><td>左側紅色隊伍</td><td>單日總淨流出（兩邊只會有一邊有人）</td></tr><tr><td>路上的行人</td><td>總成交額</td></tr></tbody></table><p>資金流是 <strong>T+1 結算</strong>，顯示最近一個已結算交易日的數字，週末與美股假日不會更新。</p><p><img src="/images/crypto-planet/etf-planet.jpg" alt="ETF 星"></p><hr><h2 id="🌦️-恐懼貪婪星：市場情緒"><a href="#🌦️-恐懼貪婪星：市場情緒" class="headerlink" title="🌦️ 恐懼貪婪星：市場情緒"></a>🌦️ 恐懼貪婪星：市場情緒</h2><p>顯示 <strong>恐懼與貪婪指數（Fear &amp; Greed Index）</strong>，0 分極度恐懼、100 分極度貪婪，每天更新一次。分數越低烏雲越多、雨越大；分數越高太陽越大、雲越少。點儀表可以看昨天、一週前、一個月前的分數和近 30 天走勢。</p><p><img src="/images/crypto-planet/fear-greed.jpg" alt="恐懼貪婪星"></p><hr><h2 id="🌙-白天夜晚-・-📱-手機版"><a href="#🌙-白天夜晚-・-📱-手機版" class="headerlink" title="🌙 白天夜晚 ・ 📱 手機版"></a>🌙 白天夜晚 ・ 📱 手機版</h2><p>右上角可切換白天或夜晚，預設跟著你的當地時間（06:00–18:00 為白天）。手機上資訊卡會變成底部抽屜，幣種列可以左右滑。</p><img src="/images/crypto-planet/mobile-night.jpg" alt="手機版夜晚模式" width="320"><hr><h2 id="資料來源"><a href="#資料來源" class="headerlink" title="資料來源"></a>資料來源</h2><table><thead><tr><th>來源</th><th>用途</th><th>更新頻率</th></tr></thead><tbody><tr><td><a href="https://www.coingecko.com/">CoinGecko</a></td><td>市值、價格、24h 漲跌</td><td>每 60 秒</td></tr><tr><td><a href="https://www.binance.com/">Binance</a></td><td>24h 成交額、主動買賣、成交筆數</td><td>每 60 秒</td></tr><tr><td><a href="https://www.okx.com/">OKX</a></td><td>爆倉公園（僅 OKX）</td><td>每 5 分鐘</td></tr><tr><td><a href="https://sosovalue.com/">SoSoValue</a></td><td>ETF 資金流、資產規模、成交額</td><td>每天兩次</td></tr><tr><td><a href="https://alternative.me/crypto/fear-and-greed-index/">Alternative.me</a></td><td>恐懼與貪婪指數</td><td>每天一次</td></tr></tbody></table><p>即時資料抓不到時會改用內建範例資料，左上角會標示。</p><hr><h2 id="技術細節"><a href="#技術細節" class="headerlink" title="技術細節"></a>技術細節</h2><ul><li>純靜態網站、沒有後端：<strong>Three.js</strong>（WebGL）＋ <strong>Vite</strong>，部署在 GitHub Pages</li><li>ETF 資料需要 API Key，由 <strong>GitHub Actions</strong> 每天抓好後跟網站一起部署，Key 不會出現在前端</li><li>原始碼：<a href="https://github.com/pekkachiu/crypto-planet">pekkachiu&#x2F;crypto-planet</a></li></ul><blockquote><p>本網站僅供視覺化參考，<strong>不構成任何投資建議</strong>。</p></blockquote>]]>
+    </content>
+    <id>https://pekkachiu.github.io/2026/10/13/crypto-planet-town/</id>
+    <link href="https://pekkachiu.github.io/2026/10/13/crypto-planet-town/"/>
+    <published>2026-10-13T05:44:15.000Z</published>
+    <summary>
+      <![CDATA[<p>看盤看久了，數字表格會開始變成一片雜訊。所以我做了一個小實驗：<strong>把加密貨幣市場畫成一個低多邊形的小太陽系</strong> — 每個分類是一顆星球，每個幣種是星球上的一間店。哪家店門口排長隊、哪裡人潮最多，一眼就知道錢往哪裡跑。</p>]]>
+    </summary>
+    <title>加密星球小鎮 — 把幣圈市場畫成一個太陽系</title>
+    <updated>2026-10-13T05:44:32.529Z</updated>
+  </entry>
   <entry>
     <author>
       <name>PekkaChiu</name>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pekkachiu.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":260,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"tomorrow-night-bright","dark":"tomorrow-night-bright"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#D93830","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="看盤看久了，數字表格會開始變成一片雜訊。所以我做了一個小實驗：把加密貨幣市場畫成一個低多邊形的小太陽系 — 每個分類是一顆星球，每個幣種是星球上的一間店。哪家店門口排長隊、哪裡人潮最多，一眼就知道錢往哪裡跑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="加密星球小鎮 — 把幣圈市場畫成一個太陽系">
+<meta property="og:url" content="https://pekkachiu.github.io/2026/10/13/crypto-planet-town/index.html">
+<meta property="og:site_name" content="PekkaChiu">
+<meta property="og:description" content="看盤看久了，數字表格會開始變成一片雜訊。所以我做了一個小實驗：把加密貨幣市場畫成一個低多邊形的小太陽系 — 每個分類是一顆星球，每個幣種是星球上的一間店。哪家店門口排長隊、哪裡人潮最多，一眼就知道錢往哪裡跑。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pekkachiu.github.io/images/crypto-planet/major-shop.jpg">
+<meta property="og:image" content="https://pekkachiu.github.io/images/crypto-planet/solar.jpg">
+<meta property="og:image" content="https://pekkachiu.github.io/images/crypto-planet/liquidation-park.jpg">
+<meta property="og:image" content="https://pekkachiu.github.io/images/crypto-planet/etf-planet.jpg">
+<meta property="og:image" content="https://pekkachiu.github.io/images/crypto-planet/fear-greed.jpg">
+<meta property="og:image" content="https://pekkachiu.github.io/images/crypto-planet/mobile-night.jpg">
+<meta property="article:published_time" content="2026-10-13T05:44:15.000Z">
+<meta property="article:modified_time" content="2026-10-13T05:44:32.529Z">
+<meta property="article:author" content="PekkaChiu">
+<meta property="article:tag" content="Crypto">
+<meta property="article:tag" content="Side Project">
+<meta property="article:tag" content="Three.js">
+<meta property="article:tag" content="資料視覺化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pekkachiu.github.io/images/crypto-planet/major-shop.jpg">
+
+
+<link rel="canonical" href="https://pekkachiu.github.io/2026/10/13/crypto-planet-town/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://pekkachiu.github.io/2026/10/13/crypto-planet-town/","path":"2026/10/13/crypto-planet-town/","title":"加密星球小鎮 — 把幣圈市場畫成一個太陽系"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>加密星球小鎮 — 把幣圈市場畫成一個太陽系 | PekkaChiu</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="PekkaChiu" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PekkaChiu</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-tools"><a href="/tools/coin-margin-pyramid.html" rel="section"><i class="fa fa-gamepad fa-fw"></i>Tools</a></li><li class="menu-item menu-item-crypto-planet"><a href="https://pekkachiu.github.io/crypto-planet/" rel="section"><i class="fa fa-globe fa-fw"></i>Crypto Planet</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%AA%90-%E5%A4%AA%E9%99%BD%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">🪐 太陽系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8F%99%EF%B8%8F-%E4%B8%BB%E6%B5%81%E6%98%9F%EF%BC%9A%E5%B8%82%E5%80%BC%E5%89%8D%E5%8D%81%E5%A4%A7%E7%9A%84%E5%B9%A3"><span class="nav-number">2.</span> <span class="nav-text">🏙️ 主流星：市值前十大的幣</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%B3-%E7%88%86%E5%80%89%E5%85%AC%E5%9C%92"><span class="nav-number">2.1.</span> <span class="nav-text">🌳 爆倉公園</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8F%A6-ETF-%E6%98%9F%EF%BC%9A%E7%8F%BE%E8%B2%A8-ETF-%E8%B3%87%E9%87%91%E6%B5%81"><span class="nav-number">3.</span> <span class="nav-text">🏦 ETF 星：現貨 ETF 資金流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%A6%EF%B8%8F-%E6%81%90%E6%87%BC%E8%B2%AA%E5%A9%AA%E6%98%9F%EF%BC%9A%E5%B8%82%E5%A0%B4%E6%83%85%E7%B7%92"><span class="nav-number">4.</span> <span class="nav-text">🌦️ 恐懼貪婪星：市場情緒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%99-%E7%99%BD%E5%A4%A9%E5%A4%9C%E6%99%9A-%E3%83%BB-%F0%9F%93%B1-%E6%89%8B%E6%A9%9F%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">🌙 白天夜晚 ・ 📱 手機版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E4%BE%86%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">資料來源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E8%A1%93%E7%B4%B0%E7%AF%80"><span class="nav-number">7.</span> <span class="nav-text">技術細節</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">PekkaChiu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pekkachiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pekkachiu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://pekkachiu.github.io/2026/10/13/crypto-planet-town/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="PekkaChiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PekkaChiu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="加密星球小鎮 — 把幣圈市場畫成一個太陽系 | PekkaChiu">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          加密星球小鎮 — 把幣圈市場畫成一個太陽系
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-10-13 13:44:15" itemprop="dateCreated datePublished" datetime="2026-10-13T13:44:15+08:00">2026-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Projects/" itemprop="url" rel="index"><span itemprop="name">Projects</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>看盤看久了，數字表格會開始變成一片雜訊。所以我做了一個小實驗：<strong>把加密貨幣市場畫成一個低多邊形的小太陽系</strong> — 每個分類是一顆星球，每個幣種是星球上的一間店。哪家店門口排長隊、哪裡人潮最多，一眼就知道錢往哪裡跑。</p>
+<span id="more"></span>
+
+<p>👉 <a href="https://pekkachiu.github.io/crypto-planet/">打開加密星球小鎮</a>　（支援手機、右上角可切換中／英文）</p>
+<p><img src="/images/crypto-planet/major-shop.jpg" alt="主流星：BTC 店門口"></p>
+<hr>
+<h2 id="🪐-太陽系"><a href="#🪐-太陽系" class="headerlink" title="🪐 太陽系"></a>🪐 太陽系</h2><p>點一顆星球就會飛進去。目前開放 <strong>主流星</strong>、<strong>ETF 星</strong> 與 <strong>恐懼貪婪星</strong>，迷因、AI、公鏈星球之後會陸續開放。</p>
+<p><img src="/images/crypto-planet/solar.jpg" alt="太陽系"></p>
+<hr>
+<h2 id="🏙️-主流星：市值前十大的幣"><a href="#🏙️-主流星：市值前十大的幣" class="headerlink" title="🏙️ 主流星：市值前十大的幣"></a>🏙️ 主流星：市值前十大的幣</h2><p>排除穩定幣與包裝幣後，市值前十大的幣各開一間店，點店面或下方的幣種列可以看詳細數字。</p>
+<table>
+<thead>
+<tr>
+<th>畫面</th>
+<th>代表什麼</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建築大小</td>
+<td>市值：≥ $1T 摩天大樓、≥ $100B 辦公大樓、≥ $20B 街邊店舖、其他小攤</td>
+</tr>
+<tr>
+<td>門口右側的綠色隊伍</td>
+<td>24 小時主動買入金額（Taker Buy）</td>
+</tr>
+<tr>
+<td>門口左側的紅色隊伍</td>
+<td>24 小時主動賣出金額</td>
+</tr>
+<tr>
+<td>路上的行人</td>
+<td>24 小時成交額</td>
+</tr>
+<tr>
+<td>叫號速度</td>
+<td>24 小時成交筆數</td>
+</tr>
+<tr>
+<td>招牌顏色</td>
+<td>24 小時漲跌：<strong>綠漲紅跌</strong>（國際慣例）</td>
+</tr>
+</tbody></table>
+<h3 id="🌳-爆倉公園"><a href="#🌳-爆倉公園" class="headerlink" title="🌳 爆倉公園"></a>🌳 爆倉公園</h3><p>位在主流星的北極。中央紀念碑的紅色段是多單爆倉、綠色段是空單爆倉；長椅上的紅衣人是多單爆倉者、綠衣人是空單爆倉者，人數隨金額增減。</p>
+<blockquote>
+<p>⚠️ 爆倉公園只用 <strong>OKX</strong> 一家的資料（這十個幣的 USDT 永續合約、過去 24 小時），不是全網爆倉，數字會比 Coinglass 小很多。</p>
+</blockquote>
+<p><img src="/images/crypto-planet/liquidation-park.jpg" alt="爆倉公園"></p>
+<hr>
+<h2 id="🏦-ETF-星：現貨-ETF-資金流"><a href="#🏦-ETF-星：現貨-ETF-資金流" class="headerlink" title="🏦 ETF 星：現貨 ETF 資金流"></a>🏦 ETF 星：現貨 ETF 資金流</h2><p>美國現貨加密貨幣 ETF，<strong>一個幣種一棟</strong>（BTC、ETH、SOL、XRP），每棟是該幣種所有 ETF 的加總，例如 BTC 棟＝IBIT＋FBTC＋GBTC＋…。</p>
+<table>
+<thead>
+<tr>
+<th>畫面</th>
+<th>代表什麼</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建築大小</td>
+<td>總資產規模：≥ $50B 摩天大樓、≥ $10B 辦公大樓、≥ $1B 街邊店舖、其他小攤</td>
+</tr>
+<tr>
+<td>右側綠色隊伍</td>
+<td>單日總淨流入</td>
+</tr>
+<tr>
+<td>左側紅色隊伍</td>
+<td>單日總淨流出（兩邊只會有一邊有人）</td>
+</tr>
+<tr>
+<td>路上的行人</td>
+<td>總成交額</td>
+</tr>
+</tbody></table>
+<p>資金流是 <strong>T+1 結算</strong>，顯示最近一個已結算交易日的數字，週末與美股假日不會更新。</p>
+<p><img src="/images/crypto-planet/etf-planet.jpg" alt="ETF 星"></p>
+<hr>
+<h2 id="🌦️-恐懼貪婪星：市場情緒"><a href="#🌦️-恐懼貪婪星：市場情緒" class="headerlink" title="🌦️ 恐懼貪婪星：市場情緒"></a>🌦️ 恐懼貪婪星：市場情緒</h2><p>顯示 <strong>恐懼與貪婪指數（Fear &amp; Greed Index）</strong>，0 分極度恐懼、100 分極度貪婪，每天更新一次。分數越低烏雲越多、雨越大；分數越高太陽越大、雲越少。點儀表可以看昨天、一週前、一個月前的分數和近 30 天走勢。</p>
+<p><img src="/images/crypto-planet/fear-greed.jpg" alt="恐懼貪婪星"></p>
+<hr>
+<h2 id="🌙-白天夜晚-・-📱-手機版"><a href="#🌙-白天夜晚-・-📱-手機版" class="headerlink" title="🌙 白天夜晚 ・ 📱 手機版"></a>🌙 白天夜晚 ・ 📱 手機版</h2><p>右上角可切換白天或夜晚，預設跟著你的當地時間（06:00–18:00 為白天）。手機上資訊卡會變成底部抽屜，幣種列可以左右滑。</p>
+<img src="/images/crypto-planet/mobile-night.jpg" alt="手機版夜晚模式" width="320">
+
+<hr>
+<h2 id="資料來源"><a href="#資料來源" class="headerlink" title="資料來源"></a>資料來源</h2><table>
+<thead>
+<tr>
+<th>來源</th>
+<th>用途</th>
+<th>更新頻率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.coingecko.com/">CoinGecko</a></td>
+<td>市值、價格、24h 漲跌</td>
+<td>每 60 秒</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.binance.com/">Binance</a></td>
+<td>24h 成交額、主動買賣、成交筆數</td>
+<td>每 60 秒</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.okx.com/">OKX</a></td>
+<td>爆倉公園（僅 OKX）</td>
+<td>每 5 分鐘</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://sosovalue.com/">SoSoValue</a></td>
+<td>ETF 資金流、資產規模、成交額</td>
+<td>每天兩次</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://alternative.me/crypto/fear-and-greed-index/">Alternative.me</a></td>
+<td>恐懼與貪婪指數</td>
+<td>每天一次</td>
+</tr>
+</tbody></table>
+<p>即時資料抓不到時會改用內建範例資料，左上角會標示。</p>
+<hr>
+<h2 id="技術細節"><a href="#技術細節" class="headerlink" title="技術細節"></a>技術細節</h2><ul>
+<li>純靜態網站、沒有後端：<strong>Three.js</strong>（WebGL）＋ <strong>Vite</strong>，部署在 GitHub Pages</li>
+<li>ETF 資料需要 API Key，由 <strong>GitHub Actions</strong> 每天抓好後跟網站一起部署，Key 不會出現在前端</li>
+<li>原始碼：<a target="_blank" rel="noopener" href="https://github.com/pekkachiu/crypto-planet">pekkachiu&#x2F;crypto-planet</a></li>
+</ul>
+<blockquote>
+<p>本網站僅供視覺化參考，<strong>不構成任何投資建議</strong>。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Crypto/" rel="tag"><i class="fa fa-tag"></i> Crypto</a>
+              <a href="/tags/Three-js/" rel="tag"><i class="fa fa-tag"></i> Three.js</a>
+              <a href="/tags/%E8%B3%87%E6%96%99%E8%A6%96%E8%A6%BA%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 資料視覺化</a>
+              <a href="/tags/Side-Project/" rel="tag"><i class="fa fa-tag"></i> Side Project</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/06/04/coin-margin-pyramid-tracker/" rel="prev" title="幣本位逆馬丁金字塔追蹤器 — 工具介紹">
+                  <i class="fa fa-angle-left"></i> 幣本位逆馬丁金字塔追蹤器 — 工具介紹
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">PekkaChiu</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
